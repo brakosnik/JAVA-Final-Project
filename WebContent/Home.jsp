@@ -45,6 +45,52 @@
 <a class="link" href="Signup.jsp">Signup</a>
 
 </div>
-</body>
+
+<div class = "text-left">
+<h5>Popular Movies</h5>
+</div>
+ <div class="container">
+    <div class="row text-center">
+        <div class="col-md-2 col-md-offset-1">
+       <img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
+        </div>
+        <div class="col-md-2">
+ <img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
+        </div>
+         <div class="col-md-2">
+ <img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
+        </div>
+         <div class="col-md-2">
+ <img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
+        </div>
+         <div class="col-md-2">
+ <img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
+        </div>
+    </div>
+</div>
+
+<div class = "text-left">
+<h5>New Movies</h5>
+</div>
+
+ <div class="container">
+    <div class="row text-center">
+        <div class="col-md-2 col-md-offset-1">
+       <img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
+        </div>
+        <div class="col-md-2">
+ <img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
+        </div>
+         <div class="col-md-2">
+ <img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
+        </div>
+         <div class="col-md-2">
+ <img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
+        </div>
+         <div class="col-md-2">
+ <img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
+        </div>
+    </div>
+</div>
 
 </html>
