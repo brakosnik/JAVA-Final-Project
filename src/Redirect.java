@@ -18,6 +18,11 @@ public class Redirect extends HttpServlet {
 		//TODO: Add check to see if username and password exist once database is set up 
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
-		response.sendRedirect("http://localhost:8080/JAVA_Final_Project/Home.jsp");
+		
+		// hard-coded username/email for demonstration
+		if (username.equals("foo") && password.equals("bar"))
+			response.sendRedirect("http://localhost:8080/JAVA_Final_Project/Home.jsp");
+		else // else reload login page
+			response.sendRedirect("http://localhost:8080/JAVA_Final_Project/Login.jsp");
 	}
 }
