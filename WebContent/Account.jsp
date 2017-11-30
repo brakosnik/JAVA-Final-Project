@@ -37,6 +37,47 @@
 </nav>
 
 <h3>My Account</h3>
+<% Account2 myAccount = new Account2(); %>
+<% myAccount.changePassword(); %>
+<% Account2 myAccount = new Account2(); %>
+<h3>My Account</h3>
 
+	<form method = "get" action = "">
+	<br><br>Account Information<br />
+	UserName
+	<input type = "text" name = "userName" /><br />
+	Password
+	<input type = "text" name = "passWord" /><br />
+	Email
+	<input type = "text" name = "email" /><br />
+	PhoneNumber
+	<input type = "text" name = "phoneNumber" /><br />
+	
+	<br>Credit Card</br>
+	firstName
+	<input type = "text" name = "firstName" /><br />
+	lastName
+	<input type = "text" name = "lastName" /><br />
+	Company
+	<input type = "text" name = "company" /><br />
+	CreditCardNumber
+	<input type = "text" name = "creditCardNumber" /><br />
+	ExpirationDate
+	<input type = "text" name = "expirationDate" /><br />
+	
+	
+	
+	<br>Billing Address</br>
+	Address
+	<input type = "text" name = "address" /><br />
+	City
+	<input type = "text" name = "city" /><br />
+	State
+	<input type = "text" name = "state" /><br />
+	Zip
+	<input type = "text" name = "zip" /><br />
+	</form>
+
+<input type = "submit" name = "Submit" value = "Save Changes"/>
 </body>
 </html>
