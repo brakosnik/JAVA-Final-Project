@@ -90,9 +90,9 @@ public class Account2 {
 
 	}
 	public void initialzeJdbc() {
-        String jdbc_url="jdbc:mysql://localhost/weisstest";
-        String userName="root";
-        String password="Running18_wiTHEtoros";
+        String jdbc_url="jdbc:mysql://localhost/moviestoredb";
+        String userName="admin";
+        String password="password";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(jdbc_url+"?useSSL=false" , userName, password);
