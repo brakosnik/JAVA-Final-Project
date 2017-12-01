@@ -59,24 +59,37 @@
 			</div>
 		</nav>
 		
-		<h3>Search</h3>
+		<div class = "container-fluid">
+			<% 
+			Statement statement = dBBeanId.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("select * from movie"); 
+			%>
+			<ul class = "list-group">
+				<% while(rs.next()){ %>
+						<% String imageName = rs.getString("movieImage");%>
+						<li class="list-group-item; list-group-item-search" >
+							<div class="row row-eq-height">
+								<div class = "col-sm-2">
+									<img class="img-responsive img-center" src="<%=rs.getString("movieImage") %>" width = "96" height = "160"/>
+								</div>
+								<div class = "col-sm-6">
+									<h1><%=rs.getString("movieTitle")%></h1>
+									<p><%=rs.getString("movieDescription") %></p>
+								</div>
+								<div class = "col-sm-4; mycontent-left">
+									<div style = "margin-left: 1em">
+										<p>Genre: <%=rs.getString("movieGenre") %><p>
+										<p>Released: <%=rs.getString("movieReleaseDate") %><p>
+										<p>Director: <%=rs.getString("director") %><p>
+										<p>Starring: <%=rs.getString("actor1") %></p>
+									</div>
+								</div>
+							</div>
+		       			</li>
+				<% } %>
+			</ul>
+		</div>
 		
-		<% 
-		Statement statement = dBBeanId.getConnection().createStatement();
-		ResultSet rs = statement.executeQuery("select * from movie"); 
-		%>
-		<ul class = "list-group">
-			<% while(rs.next()){ %>
-					<% String imageName = rs.getString("movieImage");%>
-					<li class="list-group-item" >
-						<div>
-							<img style = "vertical-align:top" src="<%=rs.getString("movieImage") %>" width = "96" height = "160"/>
-							<h1 style="color:black;"><%=rs.getString("movieTitle")%></h1>
-							<p style = "color:black;"><%=rs.getString("movieDescription") %></p>
-						</div>
-	       			</li>
-			<% } %>
-		</ul>
 	</body>
 
 
