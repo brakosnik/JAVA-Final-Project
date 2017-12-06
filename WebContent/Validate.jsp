@@ -10,9 +10,11 @@
         currUsrBeanId.setPassword(request.getParameter("password"));   
     	if(currUsrBeanId.Login())
     		 response.sendRedirect("http://localhost:8080/JAVA_Final_Project/Home.jsp");
-    	else
+    	else{
+    		System.out.println("Login failed");
     		response.sendRedirect("http://localhost:8080/JAVA_Final_Project/Login.jsp");
-    	
+    		
+    	}
    }
    catch(Exception e){       
        out.println("Something went wrong !! Please try again");       

@@ -9,6 +9,7 @@
 </jsp:useBean>
 
 <%@ page import = "java.sql.*" %>
+<%@ page import = "java.util.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,18 @@
 </head>
 
 <body>
+
+		<%
+		if(!dBBeanId.isConnected()){
+			dBBeanId.initializeJdbc();
+		}
+		%>
+	
+		<% if (dBBeanId.getConnection() == null) { %>
+			Error: Login failed. Try again.
+		<% } %>
+		
+
 		
 		<nav class="navbar fixed-top navbar-expand-sm navbar-dark, bg-dark">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,54 +77,83 @@
 	%>
 		<h6>Hi, person. You look gorgeous today</h6>
 	<%} %>
-</div>
+</div> 
 
+
+
+	<% if(!currUsrBeanId.isLoggedIn()){ 
+		Statement statement = dBBeanId.getConnection().createStatement();
+		ResultSet rs = statement.executeQuery("select * from movie order by Rand()"); 
+		%>
 	<div class = "text-left">
-		<h5>Popular Movies</h5>
+		<h5>Check out these movies</h5>
 	</div>
 
- 	<div class="container">
-    	<div class="row text-center">
-        	<div class="col-md-2 col-md-offset-1">
-       			<img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
-        	</div>
-        	<div class="col-md-2">
- 				<img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
-        	</div>
-         	<div class="col-md-2">
- 				<img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
-        	</div>
-         	<div class="col-md-2">
- 				<img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
-        	</div>
-         	<div class="col-md-2">
- 				<img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
-        	</div>
-    	</div>
+ 		<div class="container">
+    		<div class="row text-center">
+    			<%for(int i = 0; i < 5; ++i){ 
+    				rs.next();
+    			%>
+        			<div class="col-md-2 col-md-offset-1">
+	       				<img class="img-responsive img-center" src="<%=rs.getString("movieImage") %>" width = "96" height = "160"/>
+        			</div>
+				<%}%>
+    		</div>
+		</div>
+	<%} 
+	else{
+	
+
+		%>	
+	<div class = "text-left">
+		<h5>Your Queue</h5>
 	</div>
 
+ 		<div class="container">
+    		<div class="row text-center">
+    	<% 
+    		Statement statement = dBBeanId.getConnection().createStatement();
+    		if(currUsrBeanId.getMovieQueue().isEmpty()){
+    			System.out.println("Movie queue is empty");
+    		
+    		}
+    		else{
+			for(int i = 0; i < currUsrBeanId.getMovieQueue().size(); ++i){
+					ResultSet rs = statement.executeQuery("select * from movie where movieID = " 
+									+ currUsrBeanId.getMovieQueue().get(i)); 
+    				rs.next();
+    			%>
+        			<div class="col-md-2 col-md-offset-1">
+	       				<img class="img-responsive img-center" src="<%=rs.getString("movieImage") %>" width = "96" height = "160"/>
+        			</div>
+				<%}}%>
+    		</div>
+		</div>
+
+		
+		<%}%>
+		
+
+	
 	<div class = "text-left">
 		<h5>New Movies</h5>
 	</div>
 
- 	<div class="container">
-    	<div class="row text-center">
-        	<div class="col-md-2 col-md-offset-1">
-	       		<img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
-        	</div>
-        	<div class="col-md-2">
- 				<img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
-        	</div>
-         	<div class="col-md-2">
- 				<img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
-        	</div>
-         	<div class="col-md-2">
- 				<img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
-    	    </div>
-        	<div class="col-md-2">
- 				<img class="img-responsive" src="https://www.askideas.com/media/79/Australian-Shepherd-Puppy-With-Tongue-Out.jpg" alt="Placeholder">
-        	</div>
-    	</div>
-	</div>
+		<%
+		Statement statement = dBBeanId.getConnection().createStatement();
+		ResultSet rs = statement.executeQuery("select * from movie order by movieReleaseDate desc"); 
+		%>
+	
+ 		<div class="container">
+    		<div class="row text-center">
+    			<%for(int i = 0; i < 5; ++i){ 
+    				rs.next();
+    			%>
+        			<div class="col-md-2 col-md-offset-1">
+	       				<img class="img-responsive img-center" src="<%=rs.getString("movieImage") %>" width = "96" height = "160"/>
+        			</div>
+				<%}%>
+    		</div>
+		</div>
 
 </html>
