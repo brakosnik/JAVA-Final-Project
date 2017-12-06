@@ -8378,4 +8378,20 @@ a.text-dark:focus, a.text-dark:hover {
 .invisible {
   visibility: hidden !important;
 }
+/*
+	Custom CSS
+*/
+.list-group-item-search {
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: -1px;
+  background-color: gray-dark;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.mycontent-left {
+  border-left: 1px solid gray;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

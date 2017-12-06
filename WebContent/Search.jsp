@@ -10,8 +10,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src ="https://unpkg.com/popper.js@1.12.9/dist/umd/popper.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap-multiselect.js"></script>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap-multiselect.css" type="text/css"/>
+		
 		<title>Search</title>
 	</head>
 	
@@ -59,6 +65,22 @@
 			</div>
 		</nav>
 		
+		<!-- Search Bar -->
+		<div class = "container-fluid">
+			<form>
+				<div class = "form-group">
+					<select id="genre" multiple ="multiple">
+						<option value="action">Action</option>
+					  	<option value="comedy">Comedy</option>
+					  	<option value="drama">Drama</option>
+					    <option value="scifi">Sci-Fi</option>
+					    <option value="horror">Horror</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary">Search</button>
+			</form>
+		</div>
+		<!-- Load in all movies -->
 		<div class = "container-fluid">
 			<% 
 			Statement statement = dBBeanId.getConnection().createStatement();
@@ -89,8 +111,7 @@
 				<% } %>
 			</ul>
 		</div>
-		
 	</body>
-
-
+	
+	<script type="text/javascript"> $(document).ready(function() { $('#genre').multiselect(); });</script>
 </html>
