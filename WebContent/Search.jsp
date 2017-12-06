@@ -5,7 +5,7 @@
 <jsp:useBean id = "dBBeanId" scope = "session" class = "final_project.DBBean" >
 </jsp:useBean>
 
-<%@ page import = "java.sql.*" %>
+<%@ page import = "java.sql.*, java.io.*,java.util.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,10 +13,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-		<script type="text/javascript" src ="https://unpkg.com/popper.js@1.12.9/dist/umd/popper.js"></script>
 		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="bootstrap/js/bootstrap-multiselect.js"></script>
-		<link rel="stylesheet" href="bootstrap/css/bootstrap-multiselect.css" type="text/css"/>
+		<script type="text/javascript" src="selectize/js/standalone/selectize.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="selectize/css/selectize.css">
 		
 		<title>Search</title>
 	</head>
@@ -67,24 +66,45 @@
 		
 		<!-- Search Bar -->
 		<div class = "container-fluid">
-			<form>
+			<form method = "get" action = "http://localhost:8080/JAVA_Final_Project/Search.jsp">
 				<div class = "form-group">
-					<select id="genre" multiple ="multiple">
-						<option value="action">Action</option>
-					  	<option value="comedy">Comedy</option>
-					  	<option value="drama">Drama</option>
-					    <option value="scifi">Sci-Fi</option>
-					    <option value="horror">Horror</option>
-					</select>
+					<div style = "max-width:40%;">
+						<select multiple name = "gName" id = "genre">
+							<option value="Action">Action</option>
+						  	<option value="Comedy">Comedy</option>
+						  	<option value="Drama">Drama</option>
+						    <option value="Sci-Fi">Sci-Fi</option>
+						    <option value="Horror">Horror</option>
+						</select>
+					</div>
 				</div>
 				<button type="submit" class="btn btn-primary">Search</button>
 			</form>
 		</div>
 		<!-- Load in all movies -->
 		<div class = "container-fluid">
-			<% 
-			Statement statement = dBBeanId.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("select * from movie"); 
+			<%
+				Statement statement = dBBeanId.getConnection().createStatement();
+				ResultSet rs;
+				String[] genreResults = request.getParameterValues("gName");
+				StringBuffer tempString = new StringBuffer();
+				if(genreResults != null && genreResults.length > 0)
+				{
+					StringBuilder requestString = new StringBuilder("select * from movie where movieGenre like ");
+					for(int i = 0; i < genreResults.length; i++)	{
+						if(i+1 != genreResults.length){
+							requestString.append("'" + genreResults[i] + "' OR movieGenre like ");
+						}
+						else{
+							requestString.append("'" + genreResults[i] + "';");
+						}
+					}
+					rs = statement.executeQuery(requestString.toString());
+				}	
+				else{
+					rs = statement.executeQuery("select * from movie");
+				}
+				
 			%>
 			<ul class = "list-group">
 				<% while(rs.next()){ %>
@@ -113,5 +133,16 @@
 		</div>
 	</body>
 	
-	<script type="text/javascript"> $(document).ready(function() { $('#genre').multiselect(); });</script>
+	<script> $('#genre').selectize({
+		plugins: ['remove_button'],
+		delimiter: ',',
+	    persist: false,
+	    create: function(input) {
+	        return {
+	            value: input,
+	            text: input
+	        }
+	    }
+	});
+	</script>
 </html>
