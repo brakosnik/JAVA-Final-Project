@@ -16,7 +16,11 @@
 <head>
 
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  	    <script src="bootstrap/js/bootstrap.min.js"></script>
 	<title>Home</title>
 </head>
 
@@ -93,16 +97,48 @@
     		<div class="row text-center">
     			<%for(int i = 0; i < 5; ++i){ 
     				rs.next();
+
     			%>
         			<div class="col-md-2 col-md-offset-1">
-	       				<img class="img-responsive img-center" src="<%=rs.getString("movieImage") %>" width = "96" height = "160"/>
-        			</div>
-				<%}%>
+        		
+        				<div>
+  							<!-- Button to Open the Modal -->
+  							 <a href="#myModal-<%=i%>" role="button" data-toggle="modal"> 
+							<img class="img-responsive img-center" src=<%=rs.getString("movieImage") %> width = "96" height = "160"></a>
+
+
+  							<!-- The Modal -->
+ 							<div class="modal fade" id="myModal-<%=i%>">
+    							<div class="modal-dialog">
+     								 <div class="modal-content">
+      
+       									 <!-- Modal Header -->
+     										   <div class="modal-header">
+         											 <h4 class="modal-title"><%=rs.getString("movieTitle") %></h4>
+   												     <h6>Year: <%=rs.getString("movieYearReleased")%>  Rated: <%=rs.getString("movieMPAARating")%>   </h6>
+      										   </div>
+        
+      									  <!-- Modal body -->
+   									     <div class="modal-body">						
+       										<p><%=rs.getString("movieDescription") %></p>
+     									 </div>
+        
+      									  <!-- Modal footer -->
+       									 <div class="modal-footer">
+       									 <p align = "left">Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%><br>
+       									    Genre: <%=rs.getString("movieGenre")%> </p>
+       										 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        								 </div>
+   								   </div>
+ 							  </div>
+  						</div>
+					</div> 		
+        		</div>
+				<%}%>		
     		</div>
 		</div>
 	<%} 
 	else{
-	
 
 		%>	
 	<div class = "text-left">
@@ -114,9 +150,9 @@
     	<% 
     		Statement statement = dBBeanId.getConnection().createStatement();
     		if(currUsrBeanId.getMovieQueue().isEmpty()){
-    			System.out.println("Movie queue is empty");
-    		
-    		}
+    		%>	<a class="link" href="Search.jsp">Browse movies to add to your queue</a>
+    			
+    		<% }
     		else{
 			for(int i = 0; i < currUsrBeanId.getMovieQueue().size(); ++i){
 					ResultSet rs = statement.executeQuery("select * from movie where movieID = " 
@@ -124,7 +160,54 @@
     				rs.next();
     			%>
         			<div class="col-md-2 col-md-offset-1">
-	       				<img class="img-responsive img-center" src="<%=rs.getString("movieImage") %>" width = "96" height = "160"/>
+	       				  			<div>
+  							<!-- Button to Open the Modal -->
+  							 <a href="#myModal-<%=i + 10%>" role="button" data-toggle="modal"> 
+							<img class="img-responsive img-center" src=<%=rs.getString("movieImage") %> width = "96" height = "160">
+							<% currUsrBeanId.setLastMovSelected(Integer.toString(rs.getInt("movieID")));%>
+							</a>
+							
+
+  							<!-- The Modal -->
+ 							<div class="modal fade" id="myModal-<%=i + 10%>">
+    							<div class="modal-dialog">
+     								 <div class="modal-content">
+      
+       									 <!-- Modal Header -->
+     										   <div class="modal-header">
+         											 <h4 class="modal-title"><%=rs.getString("movieTitle") %></h4>
+   												     <h6>Year: <%=rs.getString("movieYearReleased")%>  Rated: <%=rs.getString("movieMPAARating")%>   </h6>
+      										   </div>
+        
+      									  <!-- Modal body -->
+   									     <div class="modal-body">						
+       										<p><%=rs.getString("movieDescription") %></p>
+     									 </div>
+        
+      									  <!-- Modal footer -->
+       									 <div class="modal-footer">
+       									  <table style="width:100%" align ="left">
+       									 	<tr>
+       									 		<td>Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
+       									    	<td>Genre: <%=rs.getString("movieGenre")%></td> 
+       									    </tr>
+       									     <tr>
+       									    <%    if(currUsrBeanId.isLoggedIn()){%>
+       									  				 <td><a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>				
+       										<%}%> 		
+
+       										</tr>
+       										<tr>
+       											<td></td>
+       											<td></td>
+       											<td> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></td>
+       										</tr>
+       									 </table>	
+        								 </div>
+   								   </div>
+ 							  </div>
+  						</div>
+					</div> 		
         			</div>
 				<%}}%>
     		</div>
@@ -150,7 +233,54 @@
     				rs.next();
     			%>
         			<div class="col-md-2 col-md-offset-1">
-	       				<img class="img-responsive img-center" src="<%=rs.getString("movieImage") %>" width = "96" height = "160"/>
+        			<div>
+  							<!-- Button to Open the Modal -->
+  							 <a href="#myModal-<%=i + 10%>" role="button" data-toggle="modal"> 
+							<img class="img-responsive img-center" src=<%=rs.getString("movieImage") %> width = "96" height = "160">
+							<% currUsrBeanId.setLastMovSelected(Integer.toString(rs.getInt("movieID")));%>
+							</a>
+							
+
+  							<!-- The Modal -->
+ 							<div class="modal fade" id="myModal-<%=i + 10%>">
+    							<div class="modal-dialog">
+     								 <div class="modal-content">
+      
+       									 <!-- Modal Header -->
+     										   <div class="modal-header">
+         											 <h4 class="modal-title"><%=rs.getString("movieTitle") %></h4>
+   												     <h6>Year: <%=rs.getString("movieYearReleased")%>  Rated: <%=rs.getString("movieMPAARating")%>   </h6>
+      										   </div>
+        
+      									  <!-- Modal body -->
+   									     <div class="modal-body">						
+       										<p><%=rs.getString("movieDescription") %></p>
+     									 </div>
+        
+      									  <!-- Modal footer -->
+       									 <div class="modal-footer">
+       									  <table style="width:100%" align ="left">
+       									 	<tr>
+       									 		<td>Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
+       									    	<td>Genre: <%=rs.getString("movieGenre")%></td> 
+       									    </tr>
+       									     <tr>
+       									    <%    if(currUsrBeanId.isLoggedIn()){%>
+       									  				 <td><a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>				
+       										<%}%> 		
+
+       										</tr>
+       										<tr>
+       											<td></td>
+       											<td></td>
+       											<td> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></td>
+       										</tr>
+       									 </table>	
+        								 </div>
+   								   </div>
+ 							  </div>
+  						</div>
+					</div> 		
         			</div>
 				<%}%>
     		</div>

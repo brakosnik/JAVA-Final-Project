@@ -10,6 +10,7 @@ public class User {
 	private String password;
 	private boolean loggedIn;
 	private Vector<String> movieQueue = new Vector<String>();
+
 	
 	public String getUsername() {
 		return username;
@@ -41,7 +42,7 @@ public class User {
 	public void setMemID(int memID) {
 		this.memID = memID;
 	}
-	 public boolean Login(){
+	public boolean Login(){
 		try {
 
 			DBBean newBean = new DBBean();
@@ -72,6 +73,4 @@ public class User {
 		}	
 		return loggedIn;	
 	}
-
-	
 }
