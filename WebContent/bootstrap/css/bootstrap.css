@@ -8394,4 +8394,27 @@ a.text-dark:focus, a.text-dark:hover {
   border-left: 1px solid gray;
 }
 
+p.middle_align{
+	vertical-align: middle;
+    padding: 4px;
+}
+
+.nopadding {
+   padding-top: 5px !important;
+   margin-left: 15px !important;
+}
+
+.nopadding-left{
+	margin-left: 15px !important;
+}
+
+.pad-right{
+	margin-right: 2px;
+}
+
+.select-input{
+	padding-right: 2px;
+	padding-top: 5px;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

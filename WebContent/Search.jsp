@@ -12,10 +12,11 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- Scripts and CCS for nice looking multiselects -->
 		<script type="text/javascript" src="selectize/js/standalone/selectize.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="selectize/css/selectize.css">
+		<link rel="stylesheet" type="text/css" href="selectize/css/selectize.bootstrap3.css">
 		
 		<title>Search</title>
 	</head>
@@ -66,9 +67,27 @@
 		
 		<!-- Search Bar -->
 		<div class = "container-fluid">
-			<form method = "get" action = "http://localhost:8080/JAVA_Final_Project/Search.jsp">
+			<form id = "submitform" class="form-inline well">
 				<div class = "form-group">
-					<div style = "max-width:40%;">
+					<label class = "control-label pad-right">Search: </label>
+					<input type ="text" class="form-control pad-right" name ="keywords" id="keywrds">
+				</div>
+				<div class="form-group select-input">
+					<select multiple name = "catName" id = "searchIn">
+						<option value="movieTitle" selected>Title</option>
+					  	<option value="movieDescription">Description</option>
+					  	<option value="director">Director</option>
+					    <option value="actor1">Actor</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary">Search</button>
+			</form>	
+			<!-- Advanced Searching below
+			  
+			<button type="button" class = "btn btn-info" data-toggle="collapse" data-target="#Search">Search</button>
+			<div id="Search" class="collapse">
+			</div>
+						Select By all the Genres
 						<select multiple name = "gName" id = "genre">
 							<option value="Action">Action</option>
 						  	<option value="Comedy">Comedy</option>
@@ -76,39 +95,22 @@
 						    <option value="Sci-Fi">Sci-Fi</option>
 						    <option value="Horror">Horror</option>
 						</select>
-					</div>
-				</div>
-				<button type="submit" class="btn btn-primary">Search</button>
-			</form>
+			
+			-->
 		</div>
+		
 		<!-- Load in all movies -->
 		<div class = "container-fluid">
 			<%
 				Statement statement = dBBeanId.getConnection().createStatement();
-				ResultSet rs;
-				String[] genreResults = request.getParameterValues("gName");
-				StringBuffer tempString = new StringBuffer();
-				if(genreResults != null && genreResults.length > 0)
-				{
-					StringBuilder requestString = new StringBuilder("select * from movie where movieGenre like ");
-					for(int i = 0; i < genreResults.length; i++)	{
-						if(i+1 != genreResults.length){
-							requestString.append("'" + genreResults[i] + "' OR movieGenre like ");
-						}
-						else{
-							requestString.append("'" + genreResults[i] + "';");
-						}
-					}
-					rs = statement.executeQuery(requestString.toString());
-				}	
-				else{
-					rs = statement.executeQuery("select * from movie");
-				}
+				String[] categoryResults = request.getParameterValues("catName");
+				String[] keywordResults = request.getParameterValues("keywords");
+				System.out.println(dBBeanId.createSimpleQuery(categoryResults, keywordResults));
+				ResultSet rs = statement.executeQuery(dBBeanId.createSimpleQuery(categoryResults, keywordResults));
 				
 			%>
 			<ul class = "list-group">
 				<% while(rs.next()){ %>
-						<% String imageName = rs.getString("movieImage");%>
 						<li class="list-group-item; list-group-item-search" >
 							<div class="row row-eq-height">
 								<div class = "col-sm-2">
@@ -132,17 +134,31 @@
 			</ul>
 		</div>
 	</body>
-	
-	<script> $('#genre').selectize({
-		plugins: ['remove_button'],
-		delimiter: ',',
-	    persist: false,
-	    create: function(input) {
-	        return {
-	            value: input,
-	            text: input
-	        }
-	    }
+	<!-- 
+		<script>
+	$(document).ready($(function()
+			{
+	    $("submitform").submit(function()
+	    {
+	        $(this).children(':input[value=""]').attr("disabled", "disabled");
+
+	        return true; // ensure form still submits
+	    });
 	});
+	</script>
+	-->
+	<script>
+		$('#searchIn').selectize({
+			plugins: ['remove_button'],
+			delimiter: ',',
+			maxItems: 1,
+		    persist: false,
+		    create: function(input) {
+		        return {
+		            value: input,
+		            text: input
+		        }
+		    }
+		});
 	</script>
 </html>

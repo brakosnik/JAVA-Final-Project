@@ -245,6 +245,7 @@
   -webkit-border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
+  width: 150px !important;
 }
 .selectize-dropdown [data-selectable] {
   cursor: pointer;
@@ -360,7 +361,7 @@
   padding: 6px 12px;
 }
 .selectize-input {
-  min-height: 34px;
+  min-height: 35px;
 }
 .selectize-input.dropdown-active {
   -webkit-border-radius: 4px;
