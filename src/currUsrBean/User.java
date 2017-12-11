@@ -1,7 +1,6 @@
 package currUsrBean;
 import java.sql.*;
-import java.util.Vector;
-
+import java.util.*;
 import final_project.DBBean;
 
 public class User {
@@ -10,6 +9,7 @@ public class User {
 	private String password;
 	private boolean loggedIn;
 	private Vector<String> movieQueue = new Vector<String>();
+
 	
 	public String getUsername() {
 		return username;
@@ -41,7 +41,7 @@ public class User {
 	public void setMemID(int memID) {
 		this.memID = memID;
 	}
-	 public boolean Login(){
+	public boolean Login(){
 		try {
 
 			DBBean newBean = new DBBean();
@@ -61,7 +61,7 @@ public class User {
 			pst.close();
 			
 			Statement st = newBean.getConnection().createStatement();
-			ResultSet rst = st.executeQuery("select movieID from queue where memberID =" + memID);
+			ResultSet rst = st.executeQuery("select movieID from queue where memberID =" + memID + " order by queueSequence");
 			while(rst.next()){
 				movieQueue.addElement(Integer.toString(rst.getInt("movieID")));
 			}	
@@ -72,6 +72,64 @@ public class User {
 		}	
 		return loggedIn;	
 	}
-
+	public boolean addMovie(int movieID){
+		DBBean newBean = new DBBean();
+		newBean.initializeJdbc();
+		if(!movieQueue.contains(Integer.toString(movieID))){
+			movieQueue.add(Integer.toString(movieID));
 	
+		try {
+			Statement st = newBean.getConnection().createStatement();
+			ResultSet  rst = st.executeQuery("select * from movie where movieID = " + movieID);
+	
+			String title = "";
+			if(rst.next()){
+				title  = rst.getString("movieTitle");
+			}	
+			PreparedStatement pst = newBean.getConnection().prepareStatement("insert into queue (memberID, movieID, queueSequence, movieTitle) values(?, ?, ?, ?)");
+			pst.setInt(1, memID);
+			pst.setInt(2, movieID);
+			pst.setInt(3, movieQueue.size());
+			pst.setString(4, title);
+			pst.executeUpdate();
+			newBean.getConnection().commit();
+			pst.close();
+			rst = st.executeQuery("select * from queue where movieID =" + movieID);
+			if(rst.next())
+				return true;
+			rst.close();
+			newBean.getConnection().close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		return false;
+	}
+	public boolean deleteMovie(int movieID){
+		DBBean newBean = new DBBean();
+		newBean.initializeJdbc();
+		if(movieQueue.contains(Integer.toString(movieID))){
+			movieQueue.remove(Integer.toString(movieID));
+	
+		try {
+			
+			PreparedStatement pst = newBean.getConnection().prepareStatement("delete from queue where movieID = ?");
+			pst.setInt(1, movieID);
+			pst.executeUpdate();
+			newBean.getConnection().commit();
+			pst.close();
+			Statement st = newBean.getConnection().createStatement();
+			ResultSet rs = st.executeQuery("select * from queue where movieID = " + movieID);
+			if(!rs.next())
+				return true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		return false;
+	}
 }
