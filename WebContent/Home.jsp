@@ -79,68 +79,12 @@
 	else{
 	
 	%>
-		<h6>Hi, person. You look gorgeous today</h6>
+		<h6>Click on movies to start watching!</h6>
 	<%} %>
 </div> 
-
-
-
-	<% if(!currUsrBeanId.isLoggedIn()){ 
-		Statement statement = dBBeanId.getConnection().createStatement();
-		ResultSet rs = statement.executeQuery("select * from movie order by Rand()"); 
-		%>
-	<div class = "text-left">
-		<h5>Check out these movies</h5>
-	</div>
-
- 		<div class="container">
-    		<div class="row text-center">
-    			<%for(int i = 0; i < 5; ++i){ 
-    				rs.next();
-
-    			%>
-        			<div class="col-md-2 col-md-offset-1">
-        		
-        				<div>
-  							<!-- Button to Open the Modal -->
-  							 <a href="#myModal-<%=i%>" role="button" data-toggle="modal"> 
-							<img class="img-responsive img-center" src=<%=rs.getString("movieImage") %> width = "96" height = "160"></a>
-
-
-  							<!-- The Modal -->
- 							<div class="modal fade" id="myModal-<%=i%>">
-    							<div class="modal-dialog">
-     								 <div class="modal-content">
-      
-       									 <!-- Modal Header -->
-     										   <div class="modal-header">
-         											 <h4 class="modal-title"><%=rs.getString("movieTitle") %></h4>
-   												     <h6>Year: <%=rs.getString("movieYearReleased")%>  Rated: <%=rs.getString("movieMPAARating")%>   </h6>
-      										   </div>
-        
-      									  <!-- Modal body -->
-   									     <div class="modal-body">						
-       										<p><%=rs.getString("movieDescription") %></p>
-     									 </div>
-        
-      									  <!-- Modal footer -->
-       									 <div class="modal-footer">
-       									 <p align = "left">Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%><br>
-       									    Genre: <%=rs.getString("movieGenre")%> </p>
-       										 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        								 </div>
-   								   </div>
- 							  </div>
-  						</div>
-					</div> 		
-        		</div>
-				<%}%>		
-    		</div>
-		</div>
-	<%} 
-	else{
-
-		%>	
+		
+	<% if(currUsrBeanId.isLoggedIn()){%>	
+		
 	<div class = "text-left">
 		<h5>Your Queue</h5>
 	</div>
@@ -162,14 +106,14 @@
         			<div class="col-md-2 col-md-offset-1">
 	       				  			<div>
   							<!-- Button to Open the Modal -->
-  							 <a href="#myModal-<%=i + 10%>" role="button" data-toggle="modal"> 
+  							 <a href="#myModal-<%=i%>" role="button" data-toggle="modal"> 
 							<img class="img-responsive img-center" src=<%=rs.getString("movieImage") %> width = "96" height = "160">
-							<% currUsrBeanId.setLastMovSelected(Integer.toString(rs.getInt("movieID")));%>
+						
 							</a>
 							
 
   							<!-- The Modal -->
- 							<div class="modal fade" id="myModal-<%=i + 10%>">
+ 							<div class="modal fade" id="myModal-<%=i%>">
     							<div class="modal-dialog">
      								 <div class="modal-content">
       
@@ -182,19 +126,25 @@
       									  <!-- Modal body -->
    									     <div class="modal-body">						
        										<p><%=rs.getString("movieDescription") %></p>
-     									 </div>
-        
-      									  <!-- Modal footer -->
-       									 <div class="modal-footer">
-       									  <table style="width:100%" align ="left">
+       										 <table style="width:100%" align ="left">
        									 	<tr>
        									 		<td>Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
        									    	<td>Genre: <%=rs.getString("movieGenre")%></td> 
        									    </tr>
+       									    </table>
+     									 </div>
+        								<form action = "DeleteMovie.jsp" method = post id = "<%=i %>">
+      									  <!-- Modal footer -->
+       									 <div class="modal-footer">
+       									  <table style="width:100%" align ="left">
+       									 	
        									     <tr>
-       									    <%    if(currUsrBeanId.isLoggedIn()){%>
+       									 
        									  				 <td><a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>				
-       										<%}%> 		
+       													<td>
+       									  					<input type = "hidden" name = "movId" value = "<%=rs.getInt("movieID") %>">
+       									  					<input type="submit" value="Remove from Queue" form = "<%=i%>">
+       									  				</td>
 
        										</tr>
        										<tr>
@@ -204,6 +154,7 @@
        										</tr>
        									 </table>	
         								 </div>
+        								 </form>
    								   </div>
  							  </div>
   						</div>
@@ -217,32 +168,30 @@
 		<%}%>
 		
 
-	
+	<% 
+		Statement statement = dBBeanId.getConnection().createStatement();
+		ResultSet rs = statement.executeQuery("select * from movie order by Rand()"); 
+		%>
 	<div class = "text-left">
-		<h5>New Movies</h5>
+		<h5>Check out these movies</h5>
 	</div>
 
-		<%
-		Statement statement = dBBeanId.getConnection().createStatement();
-		ResultSet rs = statement.executeQuery("select * from movie order by movieReleaseDate desc"); 
-		%>
-	
  		<div class="container">
     		<div class="row text-center">
     			<%for(int i = 0; i < 5; ++i){ 
     				rs.next();
+
     			%>
         			<div class="col-md-2 col-md-offset-1">
-        			<div>
+        		
+        				<div>
   							<!-- Button to Open the Modal -->
-  							 <a href="#myModal-<%=i + 10%>" role="button" data-toggle="modal"> 
-							<img class="img-responsive img-center" src=<%=rs.getString("movieImage") %> width = "96" height = "160">
-							<% currUsrBeanId.setLastMovSelected(Integer.toString(rs.getInt("movieID")));%>
-							</a>
-							
+  							 <a href="#myModal-<%=i +100%>" role="button" data-toggle="modal"> 
+							<img class="img-responsive img-center" src=<%=rs.getString("movieImage") %> width = "96" height = "160"></a>
+
 
   							<!-- The Modal -->
- 							<div class="modal fade" id="myModal-<%=i + 10%>">
+ 							<div class="modal fade" id="myModal-<%=i + 100%>">
     							<div class="modal-dialog">
      								 <div class="modal-content">
       
@@ -255,19 +204,32 @@
       									  <!-- Modal body -->
    									     <div class="modal-body">						
        										<p><%=rs.getString("movieDescription") %></p>
-     									 </div>
-        
-      									  <!-- Modal footer -->
-       									 <div class="modal-footer">
-       									  <table style="width:100%" align ="left">
+       										
+       										 <table style="width:100%" align ="left">
        									 	<tr>
        									 		<td>Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
        									    	<td>Genre: <%=rs.getString("movieGenre")%></td> 
        									    </tr>
+       									    </table>
+     									 </div>
+        								 <form action = "AddMovie.jsp" method = "post" id = "<%=i +100 %>">
+      									  <!-- Modal footer -->
+       									 <div class="modal-footer">
+     						
+       									  <table style="width:100%" align ="left">
        									     <tr>
+       									    
        									    <%    if(currUsrBeanId.isLoggedIn()){%>
-       									  				 <td><a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>				
-       										<%}%> 		
+       									  				<td><a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>
+       									  				<td>
+       									  					<input type = "hidden" name = "movId" value = "<%=rs.getInt("movieID") %>">
+       									  					<input type="submit" value="Add to Queue" form = "<%=i +100%>">
+       									  					
+       									  				</td>
+       									  				
+       									  				
+       										<%}%> 
+       											
 
        										</tr>
        										<tr>
@@ -277,6 +239,88 @@
        										</tr>
        									 </table>	
         								 </div>
+        								 </form>
+   								   </div>
+ 							  </div>
+  						</div>
+					</div> 		
+        		</div>
+				<%}%>		
+    		</div>
+		</div>
+	
+	<div class = "text-left">
+		<h5>New Movies</h5>
+	</div>
+
+		<%
+		statement = dBBeanId.getConnection().createStatement();
+	    rs = statement.executeQuery("select * from movie order by movieReleaseDate desc"); 
+		%>
+	
+ 		<div class="container">
+    		<div class="row text-center">
+    			<%for(int i = 0; i < 5; ++i){ 
+    				rs.next();
+    			%>
+        			<div class="col-md-2 col-md-offset-1">
+        			<div>
+  							<!-- Button to Open the Modal -->
+  							 <a href="#myModal-<%=i + 1000%>" role="button" data-toggle="modal"> 
+							<img class="img-responsive img-center" src=<%=rs.getString("movieImage") %> width = "96" height = "160">
+						
+							</a>
+							
+
+  							<!-- The Modal -->
+ 							<div class="modal fade" id="myModal-<%=i + 1000%>">
+    							<div class="modal-dialog">
+     								 <div class="modal-content">
+      
+       									 <!-- Modal Header -->
+     										   <div class="modal-header">
+         											 <h4 class="modal-title"><%=rs.getString("movieTitle") %></h4>
+   												     <h6>Year: <%=rs.getString("movieYearReleased")%>  Rated: <%=rs.getString("movieMPAARating")%>   </h6>
+      										   </div>
+        
+      									  <!-- Modal body -->
+   									     <div class="modal-body">						
+       										<p><%=rs.getString("movieDescription") %></p>
+       										
+       										 <table style="width:100%" align ="left">
+       									 	<tr>
+       									 		<td>Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
+       									    	<td>Genre: <%=rs.getString("movieGenre")%></td> 
+       									    </tr>
+       									    </table>
+     									 </div>
+        								 <form action = "AddMovie.jsp" method = "post" id = "<%=i +1000 %>">
+      									  <!-- Modal footer -->
+       									 <div class="modal-footer">
+     						
+       									  <table style="width:100%" align ="left">
+       									     <tr>
+       									    
+       									    <%    if(currUsrBeanId.isLoggedIn()){%>
+       									  				<td><a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>
+       									  				<td>
+       									  					<input type = "hidden" name = "movId" value = "<%=rs.getInt("movieID") %>">
+       									  					<input type="submit" value="Add to Queue" form = "<%=i +1000%>">
+       									  				</td>
+       									  				
+       									  				
+       										<%}%> 
+       											
+
+       										</tr>
+       										<tr>
+       											<td></td>
+       											<td></td>
+       											<td> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></td>
+       										</tr>
+       									 </table>	
+        								 </div>
+        							 </form>
    								   </div>
  							  </div>
   						</div>

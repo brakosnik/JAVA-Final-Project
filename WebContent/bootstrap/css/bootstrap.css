@@ -8491,4 +8491,10 @@ visibility:visible;
     width: 70%;
   }
 }
+
+.thumbnail img{
+	height:100px;
+    width:100%
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
