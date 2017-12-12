@@ -88,11 +88,13 @@ public class DBBean {
 		rs = requestString.toString();
 		return rs;
 	}
-	public String createQuery(String[] genreResults, String[] keywordResults){
+	public String createQuery(String[] keywordResults, String[] genreResults, String[] directorResults, String[] actorResults, String[] ratingResults){
 		String rs = "";
+		boolean addedToString = false;
 		if((genreResults != null && genreResults.length > 0) || (keywordResults != null && keywordResults.length > 0)){
 			StringBuilder requestString = new StringBuilder("select distinct * from movie where ");
 			if(genreResults != null){
+				addedToString = true;
 				requestString.append("movieGenre like ");
 				for(int i = 0; i < genreResults.length; i++)	{
 					if(i+1 != genreResults.length){
@@ -105,11 +107,12 @@ public class DBBean {
 			}
 			
 			if(keywordResults != null){
-				if(genreResults != null){
+				if(addedToString){
 					requestString.append("and movieTitle like ");
 				}
 				else{
 					requestString.append(" movieTitle like ");
+					addedToString = true;
 				}
 				for(int i = 0; i < keywordResults.length; i++){
 						if(i+1 != keywordResults.length){
@@ -120,6 +123,61 @@ public class DBBean {
 						}
 				}
 			}
+			
+			if(directorResults != null){
+				if(addedToString){
+					requestString.append("and director like ");
+				}
+				else{
+					requestString.append(" director like ");
+					addedToString = true;
+				}
+				for(int i = 0; i < directorResults.length; i++){
+						if(i+1 != directorResults.length){
+							requestString.append("'" + directorResults[i] + "%' OR director like ");
+						}
+						else{
+							requestString.append("'%" + directorResults[i] + "%'");
+						}
+				}
+			}
+			
+			if(actorResults != null){
+				if(addedToString){
+					requestString.append("and actor1 like ");
+				}
+				else{
+					requestString.append(" actor1 like ");
+					addedToString = true;
+				}
+				for(int i = 0; i < actorResults.length; i++){
+						if(i+1 != actorResults.length){
+							requestString.append("'" + actorResults[i] + "%' OR actor1 like ");
+						}
+						else{
+							requestString.append("'%" + actorResults[i] + "%'");
+						}
+				}
+			}
+			
+			if(ratingResults != null){
+				if(addedToString){
+					requestString.append("and movieMPAARating like ");
+				}
+				else{
+					requestString.append(" movieMPAARating like ");
+					addedToString = true;
+				}
+				for(int i = 0; i < ratingResults.length; i++){
+						if(i+1 != ratingResults.length){
+							requestString.append("'" + ratingResults[i] + "%' OR movieMPAARating like ");
+						}
+						else{
+							requestString.append("'%" + ratingResults[i] + "%'");
+						}
+				}
+			}
+						
 			requestString.append(";");
 			System.out.println(requestString.toString());
 			rs = requestString.toString();

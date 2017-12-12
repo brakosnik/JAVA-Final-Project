@@ -8418,6 +8418,10 @@ p.middle_align{
 	margin-right: 2px;
 }
 
+.pad-top{
+	padding-top: 5px;
+}
+
 .select-input{
 	padding-right: 2px;
 	padding-top: 5px;
