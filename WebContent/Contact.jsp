@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"
+    import="contactPackage.Contact" %>
+<jsp:useBean id="contactId" scope="session" class="contactPackage.Contact" />
+<jsp:setProperty name="contactId" property="*" />
 <!DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Tony's Garage - Contact Us</title>
 </head>
 <body>
 	<nav class="navbar fixed-top navbar-expand-sm navbar-dark, bg-dark">
@@ -34,24 +37,47 @@
 			</ul>
 		</div>
 	</nav>
-	<div class = "text-center">
-		<h3>Contact Us</h3><br>
-		<form>
-			<table align="center">
-				<tr>
-					<td>Name:</td>
-					<td><input type="text" name="contactName"></td>
-				</tr>
-				<tr>
-					<td>Email:</td>
-					<td><input type="email" name="contactEmail"></td>
-				</tr>
-			</table><br>
-			Concern:<br>
-			<textarea rows="5" cols="35"></textarea><br>
-			<input type="submit" value="Submit">
-			<a class="link" href="Home.jsp">Cancel</a>
-		</form>
+	<div class="text-center">
+	<%	if (contactId.getContactName() != null && contactId.getContactName().length() > 0) {%>
+			<br><h3>Thank You, <%=contactId.getContactName()%></h3><br>
+			<h6>Your submission regarding "<%=contactId.getContactSubject()%>" has been received.</h6>
+			<h6>We will respond to the email you indicated at "<%=contactId.getContactEmail()%>".</h6><br>
+			<textarea rows="5" cols="35" placeholder="<%=contactId.getContactMessage()%>"></textarea><br>
+			<a class="link" href="Home.jsp">Return</a>
+		<%	contactId.setContactName("");
+		}
+		else {%>
+			<br><h3>Contact Us</h3><br>
+			<form method="post" action="Contact.jsp">
+				<table align="center">
+					<tr><td align="left">Your Name (required)</td></tr>
+					<tr><td align="left">
+						<input name="contactName" type="text" placeholder="John Doe" class="form-control" required><br>
+					</td></tr>
+					<tr><td align="left">Your Email (required)</td></tr>
+					<tr><td align="left">
+						<input name="contactEmail" type="email" placeholder="johndoe@email.com" class="form-control" required><br>
+					</td></tr>
+					<tr><td align="left">Subject</td></tr>
+					<tr><td align="left">
+						<input name="contactSubject" type="text" list="contactSubjects" placeholder="Summary" class="form-control"><br>
+						<datalist id="contactSubjects">
+							<option>Home Page</option>
+							<option>Search Page</option>
+							<option>Account</option>
+							<option>Login</option>
+							<option>Other</option>
+						</datalist>
+					</td></tr>
+					<tr><td align="left">Message</td></tr>
+					<tr><td align="left">
+						<textarea name="contactMessage" rows="5" cols="35" placeholder="Type your concern here."></textarea><br>
+					</td></tr>
+				</table><br>
+				<input type="submit" name="Submit" value="Submit">
+				<a class="link" href="Home.jsp">Cancel</a>
+			</form>
+		<%	} %>
 	</div>
 </body>
 </html>
