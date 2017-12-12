@@ -10,24 +10,16 @@ public class Account2 {
 		private int memberID;
 		private String levelName;
 		private String userName; // will be email address
-		//No need: private String firstName;
-		//No need: private String lastName;
 		private String emailAddress;
 		private String billAddressLine1;
 		private String billAddressLine2;
 		private String billCity;
 		private String billState;
 		private String billZipCode;
-		//No need: private String phoneNumber;
-		//No need according to group: private String emailAddress;
 		private String memberPassword;
-		//No need: private Date memberSince;
-		//No need:private boolean activeStatus;
-		//No need:private String genrePreference;
+		private String genrePreference;
 		private int creditCardCCV;
 		private String creditCardNumber;
-		//No need: private String cardHolderFirstName;
-		//No need: private String cardHolderLastName;
 		private int expYear;
 		private int expMonth;
 		private String ccType;
@@ -123,7 +115,12 @@ public class Account2 {
 		public void setLevelName(String levelName) {
 			this.levelName = levelName;
 		}
-
+	public String getGenrePreference(){
+		return this.genrePreference;
+	}
+	public void setGenrePreference(String genre){
+		this.genrePreference = genre;
+	}
 	public boolean getAccountInfo() {
 		try {
 			DBBean newBean = new DBBean();
@@ -149,6 +146,7 @@ public class Account2 {
 				expYear = rs.getInt("expYear");
 				expMonth = rs.getInt("expMonth");
 				ccType = rs.getString("ccType");
+				genrePreference = rs.getString("genrePreference");
 
 				
 			}
@@ -172,7 +170,7 @@ public class Account2 {
 					+ "billCity= ?, billState=?, "
 					+ "billZipCode= ?, memberPassword=?, "
 					+ "creditCardCCV= ?, creditCardNumber=?, "
-					+ "expYear= ?, expMonth= ?, ccType = ? WHERE memberID= ?; ");
+					+ "expYear= ?, expMonth= ?, ccType = ?, genrePreference =? WHERE memberID= ?; ");
 
 			ps.setString(1, this.emailAddress);
 			ps.setString(2, this.billAddressLine1);
@@ -186,11 +184,13 @@ public class Account2 {
 			ps.setInt(10, this.expYear);
 			ps.setInt(11, this.expMonth);
 			ps.setString(12, this.ccType);
-			ps.setInt(13, this.memberID);
+			ps.setString(13, this.genrePreference);
+			ps.setInt(14, this.memberID);
+			
 			ps.executeUpdate();
 			ps.close();
 			newBean.getConnection().close();
-			//if(success != 0) throw new Exception("Did not update successfully!");
+			
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();

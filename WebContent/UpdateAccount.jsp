@@ -13,10 +13,11 @@
     		throw new Exception("currAcctBeanId is invalid");
     	}
     	
-    	//currAcctBeanId.setUsername(request.getParameter("userName"));
+ 
     	currAcctBeanId.setEmail(request.getParameter("emailAddress"));
     	currAcctBeanId.setMemberPassword(request.getParameter("passWord"));
     	currAcctBeanId.setLevelName(request.getParameter("levelName"));
+    	currAcctBeanId.setGenrePreference(request.getParameter("genrePreference"));
     	
     	currAcctBeanId.setCcType(request.getParameter("company"));
     	currAcctBeanId.setCreditCardNumber(request.getParameter("creditCardNumber"));

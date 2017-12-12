@@ -86,6 +86,8 @@
 		<input type = "password" name = "passWord" value = "<%=currAcctBeanId.getMemberPassword() %>" min="6" required/><br />
 		Level
 		<input type = "text" name = "levelName" value = "<%= currAcctBeanId.getLevelName() %>" required/><br />
+		Genre Preference
+		<input type = "text" name = "genrePreference" value = "<%= currAcctBeanId.getGenrePreference() %>"/><br />
 	
 		<br>Credit Card</br>
 		
