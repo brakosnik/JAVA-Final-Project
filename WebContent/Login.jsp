@@ -10,6 +10,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	
 	<title>Log In</title>
 </head>
 <body>

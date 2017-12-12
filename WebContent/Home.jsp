@@ -37,7 +37,7 @@
 		<% } %>
 		
 
-		
+	<form action = "Logout.jsp" method = post>
 		<nav class="navbar fixed-top navbar-expand-sm navbar-dark, bg-dark">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -63,9 +63,17 @@
 					<li class="nav-item">
 						<a class="nav-link" href="Contact.jsp">Contact Us</a>
 					</li>
+					
+					<li class="nav-item">
+						<%if(currUsrBeanId.isLoggedIn()) {%>
+						<input type="submit" value="Log Out" >
+						<%} %>
+					</li>
+					
 				</ul>
 			</div>
 		</nav>
+</form>
 
 <!-- Welcome Banner -->
 <div class = "text-center">
@@ -134,6 +142,7 @@
        									    </table>
      									 </div>
         								<form action = "DeleteMovie.jsp" method = post id = "<%=i %>">
+        								
       									  <!-- Modal footer -->
        									 <div class="modal-footer">
        									  <table style="width:100%" align ="left">
@@ -142,6 +151,7 @@
        									 
        									  				 <td><a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>				
        													<td>
+       														<input type="hidden" name="viewid" value="Home.jsp">
        									  					<input type = "hidden" name = "movId" value = "<%=rs.getInt("movieID") %>">
        									  					<input type="submit" value="Remove from Queue" form = "<%=i%>">
        									  				</td>
@@ -222,6 +232,7 @@
        									    <%    if(currUsrBeanId.isLoggedIn()){%>
        									  				<td><a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>
        									  				<td>
+       									  					<input type="hidden" name="viewid" value="Home.jsp">
        									  					<input type = "hidden" name = "movId" value = "<%=rs.getInt("movieID") %>">
        									  					<input type="submit" value="Add to Queue" form = "<%=i +100%>">
        									  					
@@ -304,6 +315,7 @@
        									    <%    if(currUsrBeanId.isLoggedIn()){%>
        									  				<td><a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>
        									  				<td>
+       									  					<input type="hidden" name="viewid" value="Home.jsp">
        									  					<input type = "hidden" name = "movId" value = "<%=rs.getInt("movieID") %>">
        									  					<input type="submit" value="Add to Queue" form = "<%=i +1000%>">
        									  				</td>

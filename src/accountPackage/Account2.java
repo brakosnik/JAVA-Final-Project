@@ -1,193 +1,202 @@
 package accountPackage;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
-//import java.sql.Connection;
-//import java.sql.DatabaseMetaData;
-//import java.sql.DriverManager;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-// package...
-// Matt Weiss
+
+
+import final_project.DBBean;
 
 public class Account2 {
-	// general
-	private String userName;
-	//private String middleInitial;
-	private String passWord;
-	private String email;
-	private String phoneNumber;
-	
-	// credit card on file
-	private String firstName;
-	//private String middleInitial;
-	private String lastName;
-	private String company;
-	private String creditCardNumber;
-	private String expirationDate;
-	
-	// billing address
-	private String address;
-	private String city;
-	private String state;
-	private String zip;
-	private Connection connection = null;
-	
-	public Account2() {
-		initialzeJdbc();
-	}
-	public int UpdateAccount() {
-		try {
-	        if(connection == null || connection.equals(null) || connection.isClosed()){
-	        	throw new Exception("connection is not proper!");
-	        }
-	        
-	        
-		} catch(Exception e) {
-	    	e.printStackTrace();
-	    }
+
+		private int memberID;
+		private String levelName;
+		private String userName; // will be email address
+		//No need: private String firstName;
+		//No need: private String lastName;
+		private String emailAddress;
+		private String billAddressLine1;
+		private String billAddressLine2;
+		private String billCity;
+		private String billState;
+		private String billZipCode;
+		//No need: private String phoneNumber;
+		//No need according to group: private String emailAddress;
+		private String memberPassword;
+		//No need: private Date memberSince;
+		//No need:private boolean activeStatus;
+		//No need:private String genrePreference;
+		private int creditCardCCV;
+		private String creditCardNumber;
+		//No need: private String cardHolderFirstName;
+		//No need: private String cardHolderLastName;
+		private int expYear;
+		private int expMonth;
+		private String ccType;
 		
-		return 0;
-	}
-	public void changePassword() {
-		try {
-			//java.lang.Integer hi = new java.lang.Integer(1);
-			String p1 = new String("123456new2");
-			String p2 = new String(p1.substring(0,10));
-			System.out.println((p1 == p2));
-			int hi = 4;
-			CallableStatement callableStatement = connection.prepareCall("{call change_pw_proc(?, ?, ?, ?, ?}");
-			
-			//callableStatement.setInt(1, -2);
-			
-			callableStatement.setInt(1, hi);
-			callableStatement.setString(2, "JQDude");
-			callableStatement.setString(3, "123456new");
-			callableStatement.setString(4, "123456new2");
-			callableStatement.setString(5, p1);
-			
-			callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
-			// ResultSet rs = callableStatement.executeQuery();
-			//int doodidy = callableStatement.executeUpdate();
-			boolean success = callableStatement.execute();
-			
-			if(callableStatement.getInt(1) == 1) {
-				System.out.println("Success changing password!");
-			}
-			else {
-				System.out.println("Failure changing password.");
-			}
-		} catch(Exception e) {
-			
-			e.printStackTrace();
-			//System.out.println(e.getCause().toString());
-			//System.out.println(e.getClass().toString());
-			System.out.println(e.getMessage());
-			System.out.println(e.toString());
-			System.out.println(new java.util.Date().toString());
+		public String getUserName() {
+			return userName;
+		}
+		public void setUserName(String userName) {
+			this.userName = userName;
+		}
+		public String getBillAddressLine1() {
+			return billAddressLine1;
+		}
+		public void setBillAddressLine1(String billAddressLine1) {
+			this.billAddressLine1 = billAddressLine1;
+		}
+		public String getBillAddressLine2() {
+			return billAddressLine2;
+		}
+		public void setBillAddressLine2(String billAddressLine2) {
+			this.billAddressLine2 = billAddressLine2;
+		}
+		public String getBillCity() {
+			return billCity;
+		}
+		public void setBillCity(String billCity) {
+			this.billCity = billCity;
+		}
+		public String getBillState() {
+			return billState;
+		}
+		public void setBillState(String billState) {
+			this.billState = billState;
+		}
+		public String getBillZipCode() {
+			return billZipCode;
+		}
+		public void setBillZipCode(String billZipCode) {
+			this.billZipCode = billZipCode;
+		}
+		public String getMemberPassword() {
+			return memberPassword;
+		}
+		public void setMemberPassword(String memberPassword) {
+			this.memberPassword = memberPassword;
+		}
+		public int getCreditCardCCV() {
+			return creditCardCCV;
+		}
+		public void setCreditCardCCV(int creditCardCCV) {
+			this.creditCardCCV = creditCardCCV;
+		}
+		public String getCreditCardNumber() {
+			return creditCardNumber;
+		}
+		public void setCreditCardNumber(String creditCardNumber) {
+			this.creditCardNumber = creditCardNumber;
+		}
+		public int getExpYear() {
+			return expYear;
+		}
+		public void setExpYear(int expYear) {
+			this.expYear = expYear;
+		}
+		public int getExpMonth() {
+			return expMonth;
+		}
+		public void setExpMonth(int expMonth) {
+			this.expMonth = expMonth;
+		}
+		public String getCcType() {
+			return ccType;
+		}
+		public void setCcType(String ccType) {
+			this.ccType = ccType;
 		}
 
-	}
-	public void initialzeJdbc() {
-        String jdbc_url="jdbc:mysql://localhost/weisstest";
-        String userName="root";
-        String password="Running18_wiTHEtoros";
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(jdbc_url+"?useSSL=false" , userName, password);
-		} catch(Exception e) {
-	    	e.printStackTrace();
-	    }
-		
-//		try {
-//			
-//		} catch(Exception e) {
-//	    	e.printStackTrace();
-//	    }
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getPassWord() {
-		return passWord;
-	}
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
-	}
 	public String getEmail() {
-		return email;
+			return emailAddress;
+		}
+		public void setEmail(String email) {
+			this.emailAddress = email;
+		}
+		public void setAccountID(int id) {
+			this.memberID = id;
+		}
+		public int getAccountId(){
+			return this.memberID;
+		}
+	public String getLevelName() {
+			return levelName;
+		}
+		public void setLevelName(String levelName) {
+			this.levelName = levelName;
+		}
+
+	public boolean getAccountInfo() {
+		try {
+			DBBean newBean = new DBBean();
+			newBean.initializeJdbc();
+
+			Statement st = newBean.getConnection().createStatement();
+			ResultSet rs = st.executeQuery("select * from member where memberID =" + memberID);
+		
+			if(rs == null ) throw new Exception("Did not getAccountInfo successfully!"); // || !rs.next()
+
+			if(rs.next()) {
+				memberID = rs.getInt("memberID");
+				levelName = rs.getString("levelName");
+				userName = rs.getString("emailAddress");
+				billAddressLine1 = rs.getString("billAddressLine1");
+				billAddressLine2 = rs.getString("billAddressLine2");
+				billCity = rs.getString("billCity");
+				billState = rs.getString("billState");
+				billZipCode = rs.getString("billZipCode");
+				memberPassword = rs.getString("memberPassword");
+				creditCardCCV = (rs.getInt("creditCardCCV"));
+				creditCardNumber = rs.getString("creditCardNumber");
+				expYear = rs.getInt("expYear");
+				expMonth = rs.getInt("expMonth");
+				ccType = rs.getString("ccType");
+
+				
+			}
+			rs.close();
+			newBean.getConnection().close();
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+		return true;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	
+	public boolean updateAccountInfo() {
+		try {
+			DBBean newBean = new DBBean();
+			newBean.initializeJdbc();
+			PreparedStatement ps = newBean.getConnection().prepareStatement(
+					"UPDATE member SET emailAddress=?, "
+					+ "billAddressLine1 = ?, billAddressLine2=?, "
+					+ "billCity= ?, billState=?, "
+					+ "billZipCode= ?, memberPassword=?, "
+					+ "creditCardCCV= ?, creditCardNumber=?, "
+					+ "expYear= ?, expMonth= ?, ccType = ? WHERE memberID= ?; ");
+
+			ps.setString(1, this.emailAddress);
+			ps.setString(2, this.billAddressLine1);
+			ps.setString(3, this.billAddressLine2);
+			ps.setString(4, this.billCity);
+			ps.setString(5, this.billState);
+			ps.setString(6, this.billZipCode);
+			ps.setString(7, this.memberPassword);
+			ps.setInt(8, this.creditCardCCV);
+			ps.setString(9, this.creditCardNumber);
+			ps.setInt(10, this.expYear);
+			ps.setInt(11, this.expMonth);
+			ps.setString(12, this.ccType);
+			ps.setInt(13, this.memberID);
+			ps.executeUpdate();
+			ps.close();
+			newBean.getConnection().close();
+			//if(success != 0) throw new Exception("Did not update successfully!");
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+		return true;
 	}
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-//	public String getMiddleInitial() {
-//		return middleInitial;
-//	}
-//	public void setMiddleInitial(String middleInitial) {
-//		this.middleInitial = middleInitial;
-//	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getCompany() {
-		return company;
-	}
-	public void setCompany(String company) {
-		this.company = company;
-	}
-	public String getCreditCardNumber() {
-		return creditCardNumber;
-	}
-	public void setCreditCardNumber(String creditCardNumber) {
-		this.creditCardNumber = creditCardNumber;
-	}
-	public String getExpirationDate() {
-		return expirationDate;
-	}
-	public void setExpirationDate(String expirationDate) {
-		this.expirationDate = expirationDate;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
-	public String getZip() {
-		return zip;
-	}
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+	
 }
