@@ -84,7 +84,7 @@
 					<button type="button" class = "btn btn-primary" data-toggle="collapse" data-target="#AdvancedSearch">Advanced Search</button>
 				</div>
 				<div id="AdvancedSearch" class="collapse">
-					<div class="form-inline well">
+					<div class="form-inline well ">
 						<div class="form-group">
 							<label class="control-label pad-right">Genre: </label>
 							<select multiple name="genres" id = "genre">
@@ -216,7 +216,6 @@
 						</div>
 					</div>
 				</div>
-				<br>
 				<button type="submit" class="btn btn-primary">Search</button>
 			</form>				  
 	

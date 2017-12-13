@@ -247,6 +247,7 @@
   border-radius: 0 0 4px 4px;
   width: 150px !important;
 }
+
 .selectize-dropdown [data-selectable] {
   cursor: pointer;
   overflow: hidden;
@@ -406,4 +407,24 @@
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+}
+
+
+/* CUSTOME CSS */ 
+.selectize-dropdown-custom {
+  position: absolute;
+  z-index: 10;
+  border: 1px solid #d0d0d0;
+  background: #ffffff;
+  margin: -1px 0 0 0;
+  border-top: 0 none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+  width: 250px !important;
 }
