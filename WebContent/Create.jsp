@@ -4,7 +4,7 @@
   <jsp:useBean id="dBBeanId" scope="session" class="final_project.DBBean">
   </jsp:useBean>
   <jsp:setProperty name = "dBBeanId" property = "*" />
-  <jsp:useBean id = "newAcctBeanId" scope = "application" class = "accountPackage.Account2" >
+  <jsp:useBean id = "newAcctBeanId" scope = "application" class = "final_project.Account2" >
   </jsp:useBean>
   <jsp:setProperty name = "newAcctBeanId" property = "*" />
 <%@ page import = "java.sql.*" %>

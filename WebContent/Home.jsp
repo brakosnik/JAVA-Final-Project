@@ -5,9 +5,9 @@
 <jsp:useBean id = "dBBeanId" scope = "session" class = "final_project.DBBean" >
 </jsp:useBean>
 
-<jsp:useBean id = "currUsrBeanId" scope = "session" class = "currUsrBean.User" >
+<jsp:useBean id = "currUsrBeanId" scope = "session" class = "final_project.User" >
 </jsp:useBean>
-<jsp:useBean id = "currAcctBeanId" scope = "session" class = "accountPackage.Account2" >
+<jsp:useBean id = "currAcctBeanId" scope = "session" class = "final_project.Account2" >
 </jsp:useBean>
 
 <%@ page import = "java.sql.*" %>
@@ -90,7 +90,7 @@
 				</ul>
 			</div>
 		</nav>
-</form>
+	</form>
 
 <!-- Welcome Banner -->
 <div class = "text-center">

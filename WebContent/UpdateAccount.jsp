@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@ page import ="java.sql.*" %>
-<jsp:useBean id = "currAcctBeanId" scope = "session" class = "accountPackage.Account2" >
+<jsp:useBean id = "currAcctBeanId" scope = "session" class = "final_project.Account2" >
 </jsp:useBean>
 <jsp:useBean id = "dBBeanId" scope = "session" class = "final_project.DBBean" >
 </jsp:useBean>

@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 
     
-<jsp:useBean id = "currUsrBeanId" scope = "session" class = "currUsrBean.User" >
+<jsp:useBean id = "currUsrBeanId" scope = "session" class = "final_project.User" >
 </jsp:useBean>
 
 <!DOCTYPE html>

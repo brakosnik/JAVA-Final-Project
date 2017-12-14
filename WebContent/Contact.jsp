@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
     import="contactPackage.Contact" %>
-<jsp:useBean id="contactId" scope="session" class="contactPackage.Contact" />
+<jsp:useBean id="contactId" scope="session" class="final_project.Contact" />
 <jsp:setProperty name="contactId" property="*" />
 <!DOCTYPE html>
 <html>
@@ -11,32 +11,36 @@
 	<title>Tony's Garage - Contact Us</title>
 </head>
 <body>
-	<nav class="navbar fixed-top navbar-expand-sm navbar-dark, bg-dark">
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		
-		<!-- Brand -->
-		<a class="navbar-brand" href="Home.jsp">Logo</a>
-		
-		<!-- Links -->
-		<div class="collapse navbar-collapse" id="nav-content">   
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="Home.jsp">Home</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="Search.jsp">Browse Movies</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="Account.jsp">My Account</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="Contact.jsp">Contact Us</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
+	<form action = "Logout.jsp" method = post>
+		<nav class="navbar fixed-top navbar-expand-sm navbar-dark, bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<!-- Brand -->
+			<a class="navbar-brand" href="Home.jsp"><img src ="logo.png"></a>
+			
+			<!-- Links -->
+			<div class="collapse navbar-collapse" id="nav-content">   
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="Home.jsp">Home</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="Search.jsp">Browse Movies</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="Account.jsp">My Account</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="Contact.jsp">Contact Us</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</form>
 	<div class="text-center">
 	<%	if (contactId.getContactName() != null && contactId.getContactName().length() > 0) {%>
 			<br><h3>Thank You, <%=contactId.getContactName()%></h3><br>

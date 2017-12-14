@@ -5,9 +5,9 @@
 <jsp:useBean id = "dBBeanId" scope = "session" class = "final_project.DBBean" >
 </jsp:useBean>
 
-<jsp:useBean id = "currUsrBeanId" scope = "session" class = "currUsrBean.User" >
+<jsp:useBean id = "currUsrBeanId" scope = "session" class = "final_project.User" >
 </jsp:useBean>
-<jsp:useBean id = "currAcctBeanId" scope = "session" class = "accountPackage.Account2" >
+<jsp:useBean id = "currAcctBeanId" scope = "session" class = "final_project.Account2" >
 </jsp:useBean>
 
 <%@ page import = "java.sql.*, java.io.*,java.util.*" %>
@@ -55,12 +55,13 @@
 			ResultSet rsColumns = dBBeanId.getConnection().getMetaData().getColumns(null, null, tableName, null);
 		%>
 		
+			<form action = "Logout.jsp" method = post>
 		<nav class="navbar fixed-top navbar-expand-sm navbar-dark, bg-dark">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<!-- Brand -->
-			<a class="navbar-brand" href="Home.jsp">Tony.jsp</a>
+			<a class="navbar-brand" href="Home.jsp"><img src ="logo.png"></a>
 			
 			<!-- Links -->
 			<div class="collapse navbar-collapse" id="nav-content">   
@@ -80,9 +81,20 @@
 					<li class="nav-item">
 						<a class="nav-link" href="Contact.jsp">Contact Us</a>
 					</li>
+					
+					<li class="nav-item">
+						<%if(currUsrBeanId.isLoggedIn()) {%>
+						<a class="nav-link" href="Logout.jsp">Logout</a>
+						<%}else {%>
+						<a class="nav-link" href="Login.jsp">Login</a>
+						<%} %>
+						
+					</li>
+					
 				</ul>
 			</div>
 		</nav>
+	</form>
 		
 		
 		<!-- QUEUE -->

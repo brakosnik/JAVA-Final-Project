@@ -1,4 +1,4 @@
-package currUsrBean;
+package final_project;
 import java.sql.*;
 import java.util.*;
 import final_project.DBBean;

@@ -1,4 +1,4 @@
-package contactPackage;
+package final_project;
 
 public class Contact {
 	

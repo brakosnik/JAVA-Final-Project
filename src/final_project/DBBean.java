@@ -13,7 +13,6 @@ public class DBBean {
 	private String url = "jdbc:mysql://localhost/moviestoredb?useSSL=false";
 	private String driver = "com.mysql.jdbc.Driver";
 	private boolean connected = false;
-	private String movieQueue[];
 	
 	public void initializeJdbc() {
 		try {
