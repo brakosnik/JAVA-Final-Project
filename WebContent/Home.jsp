@@ -57,7 +57,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<!-- Brand -->
-			<a class="navbar-brand" href="Home.jsp">Logo</a>
+			<a class="navbar-brand" href="Home.jsp"><img src ="logo.png"></a>
 			
 			<!-- Links -->
 			<div class="collapse navbar-collapse" id="nav-content">   
@@ -166,7 +166,7 @@
        									 	
        									     <tr>
        									 
-       									  				 <td><a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>				
+       									  				 <td> <a class="link" href="<%=rs.getString("movieTrailer")%>">Watch Now</a></td>
        													<td>
        														<input type="hidden" name="viewid" value="Home.jsp">
        									  					<input type = "hidden" name = "movId" value = "<%=rs.getInt("movieID") %>">

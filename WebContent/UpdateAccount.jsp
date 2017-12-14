@@ -13,7 +13,7 @@
     		throw new Exception("currAcctBeanId is invalid");
     	}
     	
-    	//currAcctBeanId.setUsername(request.getParameter("userName"));
+  
     	currAcctBeanId.setEmail(request.getParameter("emailAddress"));
     	currAcctBeanId.setMemberPassword(request.getParameter("memberPassword"));
     	currAcctBeanId.setFirstName(request.getParameter("firstName"));

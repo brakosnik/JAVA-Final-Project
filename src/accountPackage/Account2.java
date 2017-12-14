@@ -168,6 +168,47 @@ public class Account2 {
 		return true;
 	}
 	
+	public boolean createNewAccount() {
+		try {
+			DBBean newBean = new DBBean();
+			newBean.initializeJdbc();
+			PreparedStatement ps = newBean.getConnection().prepareStatement(
+			"INSERT INTO member (emailAddress, billAddressLine1, "
+			+ "billAddressLine2, billCity, billState, billZipCode, "
+			+ "memberPassword, creditCardCCV, creditCardNumber, expYear, "
+			+ "expMonth, ccType, levelName, phoneNumber, firstName, lastName, cardHolderFirstName, cardHolderLastName)"
+			+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+			);
+			ps.setString(1, this.emailAddress);
+			ps.setString(2, this.billAddressLine1);
+			ps.setString(3, this.billAddressLine2);
+			ps.setString(4, this.billCity);
+			ps.setString(5, this.billState);
+			ps.setString(6, this.billZipCode);
+			ps.setString(7, this.memberPassword);
+			ps.setInt(8, this.creditCardCCV);
+			ps.setString(9, this.creditCardNumber);
+			ps.setInt(10, this.expYear);
+			ps.setInt(11, this.expMonth);
+			ps.setString(12, this.ccType);
+			ps.setString(13, this.levelName);
+			ps.setString(14, this.phoneNumber);
+			ps.setString(15, this.firstName);
+			ps.setString(16, this.lastName);
+			ps.setString(17, this.cardHolderFirstName);
+			ps.setString(18, this.cardHolderLastName);
+			
+			ps.executeUpdate();
+			ps.close();
+			newBean.getConnection().close();
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
 	public boolean updateAccountInfo() {
 		try {
 			DBBean newBean = new DBBean();

@@ -67,8 +67,7 @@
   </div>
   <div class="col-md-2">
    <label for="phonenumber"><b>Phone Number</b></label>
-   <input id="phonenumber" type="tel" class="form-control" name="phoneNumber" pattern="[\(]\d(3)[\)]\d(3)[\-]d(4)" maxlength="15" required>
-   <span class="help-block">Ex: (000) 000-0000</span>
+   <input id="phonenumber" type="tel" class="form-control" name="phoneNumber" maxlength="15" required>
   </div>
  </div>
 <br>

@@ -105,8 +105,7 @@
 			  </div>
 			  <div class="col-md-2">
 			   <label for="phoneNumber"><b>Phone Number</b></label>
-			   <input id="phoneNumber" type="text" class="form-control" name="phoneNumber" maxlength="15" pattern="({1}\d{3})\s{1}\d{3}-{1}\d{4}" value = "<%= currAcctBeanId.getPhoneNumber() %>" required> 
-			   <span class="help-block">Ex: (000) 000-0000</span>
+			   <input id="phoneNumber" type="text" class="form-control" name="phoneNumber" maxlength="15" value = "<%= currAcctBeanId.getPhoneNumber() %>" required> 
 			  </div> 
 			  	<div class="col-md-2">
 			   <label for="genrePreference"><b>Genre Preference</b></label>
@@ -181,17 +180,26 @@
 		  </div>
 		</div>
 		
-		<div class="form-group">
-		 <div class="col-sm-6 offset-sm-3">
-		  <label class="control-label" for="levelName">Subscription:</label>
-		  <select class="form-control" id="levelName" name="levelName" >
-		  <option value = "other"><%= currAcctBeanId.getLevelName() %></option>
-		  <option value="silver">Silver ($3.95)</option>
-		  <option value="gold">Gold ($6.95)</option>
-		  <option value="platinum">Platinum ($9.95)</option>
-		  </select>
-		 </div>
-		</div>
+<div class="form-group">
+<div class="col-sm-6 offset-sm-3">
+  <label class="control-label" for="levelName">Subscription:</label>
+  <select class="form-control" id="levelName" name="levelName" >
+  <%if(currAcctBeanId.getLevelName().equals("silver")) { %>
+  <option value="silver" selected="selected">Silver ($3.95)</option>
+  <option value="gold">Gold ($6.95)</option>
+  <option value="platinum">Platinum ($9.95)</option>
+  <% } else if(currAcctBeanId.getLevelName().equals("gold") ) { %>
+  <option value="silver">Silver ($3.95)</option>
+  <option value="gold" selected="selected">Gold ($6.95)</option>
+  <option value="platinum">Platinum ($9.95)</option>
+  <% } else if(currAcctBeanId.getLevelName().equals("platinum")) { %>
+  <option value="silver" >Silver ($3.95)</option>
+  <option value="gold">Gold ($6.95)</option>
+  <option value="platinum" selected="selected">Platinum ($9.95)</option>
+  <% } %>
+  </select>
+</div>
+</div>
 		
 		<div class="row">
 		 <div class="col offset-md-5">
