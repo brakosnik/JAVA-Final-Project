@@ -67,7 +67,9 @@
 		<%-- AccountBeanNotLoaded --%>
 	<% } else {
 		currAcctBeanId.setAccountID(currUsrBeanId.getMemID());
-		currAcctBeanId.setUserName(currUsrBeanId.getUsername());
+	//	currAcctBeanId.setUserName(currUsrBeanId.getUsername());
+		currAcctBeanId.setEmail(currUsrBeanId.getUsername());
+
 		currAcctBeanId.setMemberPassword(currUsrBeanId.getPassword());
 		currAcctBeanId.getAccountInfo();
 	%>
@@ -76,46 +78,131 @@
 		
 <h3>My Account</h3>
 
-	<form action="UpdateAccount.jsp" method="post">
-		Account Information<br />
-	
+<div class="container">
+	<div class="row-justify-center">
+		<form method="post" action="UpdateAccount.jsp">
 		
-		Email
-		<input type = "email" name = "emailAddress" value = "<%= currAcctBeanId.getUserName() %>" required/><br />
-		Password
-		<input type = "password" name = "passWord" value = "<%=currAcctBeanId.getMemberPassword() %>" min="6" required/><br />
-		Level
-		<input type = "text" name = "levelName" value = "<%= currAcctBeanId.getLevelName() %>" required/><br />
-		Genre Preference
-		<input type = "text" name = "genrePreference" value = "<%= currAcctBeanId.getGenrePreference() %>"/><br />
-	
-		<br>Credit Card</br>
+		<div class="input-group col-md-6 offset-md-3">
+		 <span class="input-group-addon">Email</span>
+		 <input id="emailAddress" type="email" class="form-control" name="emailAddress" value = "<%= currAcctBeanId.getEmail() %>"  autofocus required>
+		</div>
+		<br>
+		<div class="input-group col-md-6 offset-md-3">
+		 <span class="input-group-addon">Password</span>
+		 <input id="memberPassword" type="password" class="form-control" name="memberPassword" value = "<%=currAcctBeanId.getMemberPassword() %>" min="6" required>
+		</div>
+		<br>
 		
-		Company
-		<input type = "text" name = "company" value = "<%= currAcctBeanId.getCcType() %>" required/><br />
-		CreditCardNumber
-		<input type = "text" name = "creditCardNumber" value = "<%= currAcctBeanId.getCreditCardNumber() %>"maxlength="16" size="16" pattern="[0-9]{16}" required/><br />
-		ExpirationDate
+		 <div class="form-group row">
+			  <div class="col-md-2 offset-md-2">
+			   <label for="firstName"><b>First Name</b></label>
+			   <input id="firstName" type="text" class="form-control" name="firstName" value = "<%=currAcctBeanId.getFirstName() %>" required>
+			   <span class="help-block">Enter your first and last name.</span>
+			  </div>
+			  <div class="col-md-2">
+			   <label for="lastName"><b>Last Name</b></label>
+			   <input id="lastName" type="text" class="form-control" name="lastName" value = "<%=currAcctBeanId.getLastName() %>" required>
+			  </div>
+			  <div class="col-md-2">
+			   <label for="phoneNumber"><b>Phone Number</b></label>
+			   <input id="phoneNumber" type="text" class="form-control" name="phoneNumber" maxlength="15" pattern="({1}\d{3})\s{1}\d{3}-{1}\d{4}" value = "<%= currAcctBeanId.getPhoneNumber() %>" required> 
+			   <span class="help-block">Ex: (000) 000-0000</span>
+			  </div> 
+			  	<div class="col-md-2">
+			   <label for="genrePreference"><b>Genre Preference</b></label>
+			   <input id="genrePreference" type="text" class="form-control" name="genrePreference" value = "<%=currAcctBeanId.getGenrePreference() %>" required>
+			  </div>
+		 </div>
+		<br>
 		
+
 		
-		<input type = "number" name = "expirationMonth" value = "<%= currAcctBeanId.getExpMonth() %>" maxlength="2" size="2" pattern="[0-9]{2}" required/>/
-		<input type = "number" name = "expirationYear" value = "<%= currAcctBeanId.getExpYear() %>" maxlength = "4" size="4" pattern="[0-9]{4}" required/><br />
-		CCV
-		<input type = "number" name = "ccv" value = "<%= currAcctBeanId.getCreditCardCCV() %>" maxlength="5" size="5"/><br />
+		<div class="form-group row">
+		 <div class="col-md-4 offset-md-1"> 
+		  <label for="creditCardNumber"><b>Card Number</b></label>
+		  <input id="creditCardNumber" type="number" name="creditCardNumber" class="form-control" value = "<%= currAcctBeanId.getCreditCardNumber() %>" maxlength="16" size="16" pattern="[0-9]{16}" required>
+		  <span class="help-block">Enter the number without spaces or dashes.</span>
+		 </div>
+		 <div class="col-md-2 col-md-auto" >
+		  <label for="creditCardCCV"><b>CCV</b></label>
+		  <input id="creditCardCCV" type="number" name="creditCardCCV" class="form-control" value = "<%= currAcctBeanId.getCreditCardCCV() %>" maxlength="5" size="5" pattern="[0-9]{5}" required>
+		 </div>
+		 <div class="col-md-2 offset-md-1">
+		  <label for="expYear"><b>Expiration</b></label>
+		  <input id="expYear" type="number" name="expYear" class="form-control" value = "<%= currAcctBeanId.getExpYear() %>" maxlength = "4" size="4" pattern="[0-9]{4}" min=1900 required>
+		  <span class="help-block">Ex: yyyy</span>	
+		 </div>
+		 <div class="col-md-2"> <%-- col-md-2 --%>
+		  <label for="expMonth"><b>Date</b></label> 
+		  <input id="expMonth" type="number" name="expMonth" class="form-control" value = "<%= currAcctBeanId.getExpMonth() %>" maxlength="2" pattern="[0-9]{2}" min=1 max = 12 required>
+		  <span class="help-block">Ex: mm</span>
+		 </div>
+		</div>
+		<div class="form-group row">
+		 <div class="col-md-4 offset-md-1">
+		  <label for="cardfirstname"><b>Cardholder First Name</b></label>
+		  <input id="cardfirstname" type="text" name="cardHolderFirstName" class="form-control" value = "<%= currAcctBeanId.getCardHolderFirstName() %>"required>
+		 </div>
+		 <div class="col-md-4">
+		  <label for="cardlastname"><b>Cardholder Last Name</b></label>
+		  <input id="cardlastname" type="text" name="cardHolderLastName" class="form-control" value = "<%= currAcctBeanId.getCardHolderLastName() %>" required>
+		 </div>
+		  <div class="col-md-3">
+		  <label for="cardtype"><b>Card Type</b></label>
+		  <input id="cardtype" type="text" name="ccType" class="form-control" value = "<%= currAcctBeanId.getCcType() %>" required>
+		  <span class="help-block">Enter card company name.</span>
+		 </div>
+		</div>
+		<br>
+		<div class="form-group row">
+		  <div class="col-md-7 offset-md-1">
+		   <label for="billAddressLine1"><b>Address Line 1</b></label>
+		   <input id="billAddressLine1" type="text" name="billAddressLine1" class="form-control" value = "<%= currAcctBeanId.getBillAddressLine1() %>" required>
+		  </div>
+		 
+		  <div class="col-md-4">
+		   <label for="billCity"><b>City</b></label>
+		   <input id="billCity" type="text" name="billCity" class="form-control" name = "city" value = "<%= currAcctBeanId.getBillCity() %>" required>
+		  </div>
+		 
+		  <div class="col-md-7 offset-md-1">
+		   <label for="billAddressLine2"><b>Address Line 2</b></label>
+		   <input id="billAddressLine2" type="text" name="billAddressLine2" class="form-control" value = "<%= currAcctBeanId.getBillAddressLine2() %>">
+		  </div>
+		  
+		  <div class="col-md-2">
+		   <label for="billState"><b>State</b></label>
+		   <input id="billState" type="text" name="billState" class="form-control" value = "<%= currAcctBeanId.getBillState() %>" maxlength="2" size="2" pattern="[A-Z]{2}" required>
+		  </div>
+		  
+		  <div class="col-sm-2">
+		   <label for="billZipCode"><b>ZIP</b></label>
+		   <input id="billZipCode" type="number" name="billZipCode" class="form-control" value = "<%= currAcctBeanId.getBillZipCode() %>" pattern="\d(5)" size="5" maxlength="5" required>
+		  </div>
+		</div>
 		
-		<br>Billing Address</br>
-		Address1
-		<input type = "text" name = "addressLine1" value = "<%= currAcctBeanId.getBillAddressLine1() %>" required/><br />
-		Address2
-		<input type = "text" name = "addressLine2" value = "<%= currAcctBeanId.getBillAddressLine2() %>" /><br />
-		City
-		<input type = "text" name = "city" value = "<%= currAcctBeanId.getBillCity() %>" /><br />
-		State
-		<input type = "text" name = "state" value = "<%= currAcctBeanId.getBillState() %>" maxlength="2" size="2" pattern="[A-Z]{2}" required/><br />
-		Zip
-		<input type = "text" name = "zip" value = "<%= currAcctBeanId.getBillZipCode() %>" maxlength="5" size="5" required/><br />
-		<input type = "submit" name = "Submit" value = "Save Changes"/>
-	</form>
+		<div class="form-group">
+		 <div class="col-sm-6 offset-sm-3">
+		  <label class="control-label" for="levelName">Subscription:</label>
+		  <select class="form-control" id="levelName" name="levelName" >
+		  <option value = "other"><%= currAcctBeanId.getLevelName() %></option>
+		  <option value="silver">Silver ($3.95)</option>
+		  <option value="gold">Gold ($6.95)</option>
+		  <option value="platinum">Platinum ($9.95)</option>
+		  </select>
+		 </div>
+		</div>
+		
+		<div class="row">
+		 <div class="col offset-md-5">
+		  <input type = "submit" value = "Submit">
+		  <input type = "reset">
+		 </div>
+		</div>
+		
+		</form>
+	</div>
+</div>
 
 <div class = "text-left">
 		<h5>Your Queue</h5>
@@ -160,7 +247,7 @@
        										<p><%=rs.getString("movieDescription") %></p>
        										 <table style="width:100%" align ="left">
        									 	<tr>
-       									 		<td>Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
+       									 		<td>Actors: <%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
        									    	<td>Genre: <%=rs.getString("movieGenre")%></td> 
        									    </tr>
        									    </table>

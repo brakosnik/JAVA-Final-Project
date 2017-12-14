@@ -80,8 +80,11 @@
 					
 					<li class="nav-item">
 						<%if(currUsrBeanId.isLoggedIn()) {%>
-						<input type="submit" value="Log Out" >
+						<a class="nav-link" href="Logout.jsp">Logout</a>
+						<%}else {%>
+						<a class="nav-link" href="Login.jsp">Login</a>
 						<%} %>
+						
 					</li>
 					
 				</ul>
@@ -150,7 +153,7 @@
        										<p><%=rs.getString("movieDescription") %></p>
        										 <table style="width:100%" align ="left">
        									 	<tr>
-       									 		<td>Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
+       									 		<td>Actors: <%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
        									    	<td>Genre: <%=rs.getString("movieGenre")%></td> 
        									    </tr>
        									    </table>
@@ -229,7 +232,7 @@
        										
        										 <table style="width:100%" align ="left">
        									 	<tr>
-       									 		<td>Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
+       									 		<td>Actors: <%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
        									    	<td>Genre: <%=rs.getString("movieGenre")%></td> 
        									    </tr>
        									    </table>
@@ -315,7 +318,7 @@
        										
        										 <table style="width:100%" align ="left">
        									 	<tr>
-       									 		<td>Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
+       									 		<td>Actors: <%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
        									    	<td>Genre: <%=rs.getString("movieGenre")%></td> 
        									    </tr>
        									    </table>
@@ -399,7 +402,7 @@
        										
        										 <table style="width:100%" align ="left">
        									 	<tr>
-       									 		<td>Actors:<%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
+       									 		<td>Actors: <%=rs.getString("actor1")%>, <%=rs.getString("actor2")%></td>
        									    	<td>Genre: <%=rs.getString("movieGenre")%></td> 
        									    </tr>
        									    </table>
