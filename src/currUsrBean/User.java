@@ -9,6 +9,7 @@ public class User {
 	private String password;
 	private boolean loggedIn;
 	private Vector<String> movieQueue = new Vector<String>();
+	private boolean validLogin = true;
 
 	
 	public String getUsername() {
@@ -40,6 +41,12 @@ public class User {
 	}
 	public void setMemID(int memID) {
 		this.memID = memID;
+	}
+	public void setValidLogin(boolean validLogin) {
+		this.validLogin = validLogin;
+	}
+	public boolean getValidLogin() {
+		return validLogin;
 	}
 	public boolean Login(){
 		try {

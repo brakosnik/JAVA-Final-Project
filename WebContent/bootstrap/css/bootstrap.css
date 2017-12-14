@@ -8395,6 +8395,10 @@ a.text-dark:focus, a.text-dark:hover {
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
+.list-group-item-search:hover{
+	  background-color: gray-light;
+}
+
 .mycontent-left {
   border-left: 1px solid gray;
 }

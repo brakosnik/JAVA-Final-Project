@@ -12,6 +12,7 @@
     		 response.sendRedirect("http://localhost:8080/JAVA_Final_Project/Home.jsp");
     	else{
     		System.out.println("Login failed");
+    		currUsrBeanId.setValidLogin(false);
     		response.sendRedirect("http://localhost:8080/JAVA_Final_Project/Login.jsp");
     		
     	}

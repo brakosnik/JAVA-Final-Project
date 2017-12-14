@@ -52,7 +52,14 @@
 				<tr><td align="left">
 					<input type="password" name="password" class="form-control">
 				</td></tr>
-			</table><br>
+			</table>
+		<%	if (currUsrBeanId.getValidLogin() == false) {
+				currUsrBeanId.setValidLogin(true);%>
+				<h6 style="color:red;" align="center">Invalid username and/or password</h6>
+		<%	}
+			else {%>
+				<br>
+		<%	}%>
 			<input type="submit" value="Login" />
 			<a class="link" href="Signup.jsp">Signup</a>
 		</form>

@@ -6,7 +6,8 @@
 </jsp:useBean>
 <%
     try{
-        currUsrBeanId.setLoggedIn(false);  
+        currUsrBeanId.setLoggedIn(false);
+        currUsrBeanId.getMovieQueue().removeAllElements();
     	response.sendRedirect("http://localhost:8080/JAVA_Final_Project/Home.jsp");
     	
    }
